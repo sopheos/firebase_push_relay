@@ -8,6 +8,12 @@ import {
 import { FCMMessage } from "../models/FCMMessage";
 import { addFailedToken } from "./db";
 
+const removeDevices = [
+  "messaging/invalid-registration-token",
+  "messaging/registration-token-not-registered",
+  "messaging/invalid-argument", // Invalid token format (eg. empty string)
+];
+
 admin.initializeApp({
   credential: admin.credential.cert(config.serviceAccount),
 });
@@ -34,16 +40,18 @@ export const send = async (fcmMessage: FCMMessage) => {
 
       response.responses.forEach((resp, idx) => {
         if (!resp.success) {
-          failedTokens.push(message.tokens[idx]);
-          addFailedToken(message.tokens[idx]);
+          if (removeDevices.includes(resp.error?.code || "")) {
+            failedTokens.push(message.tokens[idx]);
+            addFailedToken(message.tokens[idx]);
+          } else {
+            console.error(
+              `Failed to send message to ${message.tokens[idx]}`,
+              resp.error?.toJSON(),
+              fcmMessage,
+            );
+          }
         }
       });
-
-      if (failedTokens) {
-        console.log("List of tokens that caused failures: ", failedTokens);
-      } else {
-        console.log("All messages sent successfully");
-      }
 
       return response;
     });
