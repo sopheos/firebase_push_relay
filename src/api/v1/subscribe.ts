@@ -17,6 +17,7 @@ export default async (ctx: Context) => {
     if (err instanceof ZodError) {
       throw HttpError.fromZod(err);
     }
+    console.log(err);
     throw err;
   }
 };
