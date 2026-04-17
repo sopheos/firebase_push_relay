@@ -1,0 +1,27 @@
+meta {
+  name: Unsubscribe
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{URL}}/v1/unsubscribe
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{TOKEN}}
+}
+
+body:json {
+  {
+    "tokens": [],
+    "topic": "news"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

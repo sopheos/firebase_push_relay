@@ -1,0 +1,30 @@
+meta {
+  name: Send to topic
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{URL}}/v1/send
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{TOKEN}}
+}
+
+body:json {
+  {
+    "topic": "news",
+    "notification": {
+      "title": "Super news !",
+      "body": "World"
+    }
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

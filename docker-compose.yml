@@ -1,0 +1,27 @@
+services:
+  app:
+    restart: always
+    container_name: firebase_push_app_${DOCKER_NAME:-dev}
+    hostname: firebase
+    image: firebase_push_${DOCKER_NAME:-dev}
+    build:
+      context: .
+      dockerfile: ./dockerfile
+    environment:
+      IS_DOCKER: "true"
+      NODE_ENV: "production"
+    ports:
+      - "${DOCKER_IP:-127.0.0.1}:${DOCKER_PORT:-3000}:3000"
+
+  redis:
+    restart: always
+    container_name: firebase_push_redis_${DOCKER_NAME:-dev}
+    hostname: redis
+    image: redis:8-alpine
+    command: redis-server --appendonly yes --save 60 1 --loglevel warning
+    volumes:
+      - redis-data:/data
+
+volumes:
+  redis-data:
+    driver: local

@@ -1,0 +1,20 @@
+meta {
+  name: Get failed tokens
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{URL}}/v1/fails
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{TOKEN}}
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

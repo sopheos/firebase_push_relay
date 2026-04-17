@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "target": "esnext",
+        "module": "esnext",
+        "rewriteRelativeImportExtensions": true,
+        "esModuleInterop": true,
+        "strict": true,
+        "paths": {
+            "#/*": [
+                "./src/*"
+            ]
+        }
+    }
+}

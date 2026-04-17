@@ -1,0 +1,8 @@
+services:
+  redis:
+    restart: always
+    container_name: firebase_push_redis_${DOCKER_NAME:-dev}
+    hostname: redis
+    image: redis:8-alpine
+    ports:
+      - "6379:6379"

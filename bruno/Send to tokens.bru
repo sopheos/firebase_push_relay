@@ -1,0 +1,30 @@
+meta {
+  name: Send to tokens
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{URL}}/v1/send
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{TOKEN}}
+}
+
+body:json {
+  {
+    "tokens": [],
+    "notification": {
+      "title": "Hello",
+      "body": "World"
+    }
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
