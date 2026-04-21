@@ -6,7 +6,7 @@ import { ZodError } from "zod";
 import HttpError from "#/lib/HttpError";
 
 export const fcmBatchSchema = z.object({
-  messages: z.array(fcmMessageSchema).min(1).max(100), // limite batch (important)
+  messages: z.array(fcmMessageSchema).min(1).max(1000), // limite batch (important)
 });
 
 export type FCMBatch = z.infer<typeof fcmBatchSchema>;
