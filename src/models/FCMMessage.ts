@@ -13,15 +13,15 @@ function isReservedWord(originalKey: string): boolean {
   );
 }
 
-function isBinaryData(value: any): boolean {
-  if (typeof value === "string") {
-    try {
-      return btoa(atob(value)) === value;
-    } catch (err) {
-      return false;
-    }
+function isBinaryData(value: string): boolean {
+  try {
+    // Attempt to decode as UTF-8, if it fails or contains replacement characters, it's binary
+    const decoder = new TextDecoder("utf-8", { fatal: true });
+    decoder.decode(Buffer.from(value, "binary"));
+    return false;
+  } catch {
+    return true;
   }
-  return false;
 }
 
 function transformData(input: Record<string, any>): Record<string, string> {
