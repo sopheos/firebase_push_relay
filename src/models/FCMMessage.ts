@@ -14,6 +14,7 @@ function isReservedWord(originalKey: string): boolean {
 }
 
 function isBinaryData(value: string): boolean {
+  return false; // Disable binary data detection for now, as it can cause issues with certain valid strings (eg. URLs)
   try {
     // Attempt to decode as UTF-8, if it fails or contains replacement characters, it's binary
     const decoder = new TextDecoder("utf-8", { fatal: true });
