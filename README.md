@@ -13,10 +13,12 @@ cd firebase_push_relay
 
 
 # Configure docker settings
-cp .env.example .env
+cp docker-compose.exemple.yml docker-compose.yml
+nano docker-compose.yml
 
 # Configure JWT key and firebase credentials (using service account)
 cp config.exemple.json config.json
+nano config.json
 
 # Start the server
 docker compose up -d
